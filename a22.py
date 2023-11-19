@@ -12,15 +12,6 @@ def counting_algorithm(arr):
         result.extend([i] * counts[i])
     return result
 
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr) // 2]
-    left = [x for x in arr if x < pivot]
-    middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
-    return quick_sort(left) + middle + quick_sort(right)
-
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -46,14 +37,14 @@ def linear_search_unordered(arr):
     return -1
 
 class HashTable:
-    def init(self):
-        self.dict['table'] = {}
+    def _init_(self):
+        self._dict_['table'] = {}
 
     def insert(self, key, value):
-        self.dict['table'][key] = value
+        self._dict_['table'][key] = value
 
     def search(self, key):
-        return self.dict['table'].get(key, None)
+        return self._dict_['table'].get(key, None)
 
 def binary_search(arr):
     target = target=random.choice(data)
@@ -101,12 +92,10 @@ class AlgorithmComparisonApp:
         master.geometry('600x400')
 
         self.algorithm1_label = Label(master, text='Algorithm 1:')
-        self.algorithm1_combobox = ttk.Combobox(master, values=['counting_algorithm', 'insertion_sort', 'selection_sort', 'quick_sort', 'linear_search_unordered', 'binary_search'])
-        self.algorithm1_combobox.set('counting_algorithm')
+        self.algorithm1_entry = Entry(master)
 
         self.algorithm2_label = Label(master, text='Algorithm 2:')
-        self.algorithm2_combobox = ttk.Combobox(master, values=['counting_algorithm', 'insertion_sort', 'selection_sort', 'quick_sort', 'linear_search_unordered', 'binary_search'])
-        self.algorithm2_combobox.set('insertion_sort')
+        self.algorithm2_entry = Entry(master)
 
         self.run_button = Button(master, text='Run Comparison', command=self.run_comparison)
 
@@ -114,9 +103,9 @@ class AlgorithmComparisonApp:
         self.results_text = Text(master)
 
         self.algorithm1_label.pack()
-        self.algorithm1_combobox.pack()
+        self.algorithm1_entry.pack()
         self.algorithm2_label.pack()
-        self.algorithm2_combobox.pack()
+        self.algorithm2_entry.pack()
         self.run_button.pack()
         self.results_label.pack()
         self.results_text.pack()
@@ -125,9 +114,9 @@ class AlgorithmComparisonApp:
         self.fastest_text = Text(master, height=2, state=tk.DISABLED)
 
         self.algorithm1_label.pack()
-        self.algorithm1_combobox.pack()
+        self.algorithm1_entry.pack()
         self.algorithm2_label.pack()
-        self.algorithm2_combobox.pack()
+        self.algorithm2_entry.pack()
         self.run_button.pack()
         self.results_label.pack()
         self.results_text.pack()
@@ -135,8 +124,8 @@ class AlgorithmComparisonApp:
         self.fastest_text.pack()
 
     def run_comparison(self):
-        algorithm1_name = self.algorithm1_combobox.get().strip()
-        algorithm2_name = self.algorithm2_combobox.get().strip()
+        algorithm1_name = self.algorithm1_entry.get().strip()
+        algorithm2_name = self.algorithm2_entry.get().strip()
 
         if not algorithm1_name or not algorithm2_name:
             self.show_error('Error', 'Please enter names for both algorithms.')
